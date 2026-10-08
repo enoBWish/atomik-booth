@@ -91,9 +91,9 @@
         <button type="button" data-v="email" class="on">Email it to me</button>
         <button type="button" data-v="qr">Just show me a QR code</button>
       </div>
-      <input id="fName" type="text" placeholder="First name (optional)" maxlength="60" autocapitalize="words">
-      <input id="fEmail" type="email" inputmode="email" placeholder="Email address" maxlength="120" autocapitalize="off" spellcheck="false">
-      <input id="fPhone" type="tel" inputmode="tel" placeholder="Phone number" maxlength="20">
+      <input id="fName" type="text" enterkeyhint="next" placeholder="First name (optional)" maxlength="60" autocapitalize="words">
+      <input id="fEmail" type="email" enterkeyhint="next" inputmode="email" placeholder="Email address" maxlength="120" autocapitalize="off" spellcheck="false">
+      <input id="fPhone" type="tel" enterkeyhint="done" inputmode="tel" placeholder="Phone number" maxlength="20">
       <label class="consent"><input id="cEmail" type="checkbox"><span id="cEmailText"></span></label>
       <label class="consent"><input id="cSms" type="checkbox"><span id="cSmsText"></span></label>
       <p class="fine">Your photo is yours either way &mdash; signing up is totally optional.</p>
@@ -107,6 +107,8 @@
 </section>
 
 <!-- policy pages: shown as a QR to read on the guest's own phone (the kiosk never browses away) -->
+<button type="button" id="kbDone" class="kb-done">Done typing &#10003;</button>
+
 <section id="policy" class="screen">
   <div class="card">
     <h2 id="policyTitle">Terms</h2>

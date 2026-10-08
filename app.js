@@ -475,6 +475,35 @@ $('infoForm').onsubmit = async (e) => {
 };
 $('infoBack').onclick = () => resetBooth();
 
+// ---- on-screen keyboard: in full screen it covers the bottom half and has no "hide" key, so:
+//  Enter = next box (last box = done), a floating "Done typing" button, tap off the boxes to close it,
+//  and room to scroll while it's up.
+const FIELDS = ['fName', 'fEmail', 'fPhone'];
+function hideKeyboard() { if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); }
+FIELDS.forEach((id, i) => {
+  $(id).addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    if (i < FIELDS.length - 1) $(FIELDS[i + 1]).focus(); else hideKeyboard();
+  });
+  $(id).addEventListener('focus', () => {
+    $('kbDone').classList.add('show'); $('info').classList.add('typing');
+    setTimeout(() => $(id).scrollIntoView({ block: 'center', behavior: 'smooth' }), 250);
+  });
+  $(id).addEventListener('blur', () => setTimeout(() => {
+    if (!FIELDS.includes(document.activeElement && document.activeElement.id)) { $('kbDone').classList.remove('show'); $('info').classList.remove('typing'); }
+  }, 50));
+});
+$('kbDone').addEventListener('pointerdown', (e) => { e.preventDefault(); hideKeyboard(); });
+$('info').addEventListener('pointerdown', (e) => {
+  if (!e.target.closest('input, button, label, a')) hideKeyboard();     // tap on empty space = close the keyboard
+});
+// keep the floating button just above the keyboard
+if (window.visualViewport) {
+  const place = () => { $('kbDone').style.bottom = Math.max(16, innerHeight - visualViewport.height - visualViewport.offsetTop + 16) + 'px'; };
+  visualViewport.addEventListener('resize', place); visualViewport.addEventListener('scroll', place);
+}
+
 let doneTimer = null;
 function showDone(res, entry) {
   const masked = entry.email.replace(/^(.).*(@.*)$/, '$1•••$2');
