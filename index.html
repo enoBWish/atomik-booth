@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>ATOMIK Photo Booth</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0B0F14">
+<meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+<div id="stage">
+  <video id="cam" playsinline muted autoplay></video>
+  <canvas id="bgcv"></canvas>
+  <canvas id="fx"></canvas>
+  <div id="flash"></div>
+  <div id="countdown"></div>
+</div>
+
+<!-- attract -->
+<section id="attract" class="screen show">
+  <img class="logo" src="assets/logo_chrome.png" alt="ATOMIK">
+  <div class="sub">PHOTO BOOTH</div>
+  <button id="startBtn" class="big">Tap to start</button>
+  <div class="tag">The Reaction Starts Here</div>
+</section>
+
+<!-- 21+ -->
+<section id="age" class="screen">
+  <div class="card">
+    <h2>Are you 21 or older?</h2>
+    <div class="row">
+      <button id="ageYes" class="big">Yes, I'm 21+</button>
+      <button id="ageNo" class="big ghost">No</button>
+    </div>
+  </div>
+</section>
+
+<section id="underage" class="screen">
+  <div class="card"><h2>Sorry! This booth is 21+ only.</h2></div>
+</section>
+
+<!-- live controls -->
+<section id="controls" class="screen">
+  <button id="eyeBtn" class="chip eye" type="button">Hide controls</button>
+  <div class="bar">
+    <div class="group">
+      <span class="label">Frame</span>
+      <div id="frames" class="chips"></div>
+    </div>
+    <div class="group">
+      <span class="label">Background</span>
+      <div id="bgs" class="chips"></div>
+    </div>
+    <div class="group">
+      <span class="label">Filter</span>
+      <div id="filters" class="chips"></div>
+    </div>
+    <div class="group">
+      <span class="label">Extras</span>
+      <div class="chips">
+        <button id="tHelmet" class="chip on">Helmet</button>
+        <button id="tAlien" class="chip on">Alien</button>
+        <button id="tJoint" class="chip">Joint</button>
+      </div>
+    </div>
+  </div>
+  <!-- (outside the bar: the shutter stays put when the controls are hidden) -->
+  <button id="shutter" aria-label="Take photo"></button>
+</section>
+
+<!-- preview -->
+<section id="preview" class="screen">
+  <img id="shot" alt="Your photo">
+  <div class="row bottom">
+    <button id="retake" class="big ghost">Retake</button>
+    <button id="keep" class="big">Looks good!</button>
+  </div>
+</section>
+
+<!-- guest info + consent -->
+<section id="info" class="screen">
+  <div class="info-wrap">
+    <img id="infoShot" class="info-shot" alt="Your photo">
+    <form id="infoForm" class="info-form" autocomplete="off" novalidate>
+      <h2>Where should we send it?</h2>
+      <div class="seg" id="deliverSeg">
+        <button type="button" data-v="email" class="on">Email it to me</button>
+        <button type="button" data-v="qr">Just show me a QR code</button>
+      </div>
+      <input id="fName" type="text" placeholder="First name (optional)" maxlength="60" autocapitalize="words">
+      <input id="fEmail" type="email" inputmode="email" placeholder="Email address" maxlength="120" autocapitalize="off" spellcheck="false">
+      <input id="fPhone" type="tel" inputmode="tel" placeholder="Phone number" maxlength="20">
+      <label class="consent"><input id="cEmail" type="checkbox"><span id="cEmailText"></span></label>
+      <label class="consent"><input id="cSms" type="checkbox"><span id="cSmsText"></span></label>
+      <p class="fine">Your photo is yours either way &mdash; signing up is totally optional.</p>
+      <div id="formErr" class="err"></div>
+      <div class="row">
+        <button type="button" id="infoBack" class="big ghost">Start over</button>
+        <button type="submit" id="infoSend" class="big">Send my photo</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- policy pages: shown as a QR to read on the guest's own phone (the kiosk never browses away) -->
+<section id="policy" class="screen">
+  <div class="card">
+    <h2 id="policyTitle">Terms</h2>
+    <canvas id="policyQR" class="qr"></canvas>
+    <p>Scan to read it on your phone.</p>
+    <p class="muted small" id="policyUrl"></p>
+    <button type="button" id="policyClose" class="big">Back</button>
+  </div>
+</section>
+
+<section id="sending" class="screen">
+  <div class="card"><div class="spinner"></div><h2>Beaming it up&hellip;</h2></div>
+</section>
+
+<section id="done" class="screen">
+  <div class="card done-card">
+    <h2 id="doneTitle">Out of this world.</h2>
+    <div id="doneQRWrap"><canvas id="doneQR" class="qr"></canvas><p>Scan to grab your photo</p></div>
+    <p id="doneMsg"></p>
+    <button type="button" id="doneBtn" class="big">Done</button>
+    <p class="muted small" id="doneTimer"></p>
+  </div>
+</section>
+
+<div id="status"></div>
+<div id="fps"></div>
+
+<script src="vendor/qrcode.min.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

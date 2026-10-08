@@ -1,0 +1,9 @@
+{
+  "name": "ATOMIK Photo Booth",
+  "short_name": "ATOMIK",
+  "start_url": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#0B0F14",
+  "theme_color": "#0B0F14"
+}
