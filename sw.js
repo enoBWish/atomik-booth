@@ -1,10 +1,10 @@
 // Offline cache for the booth. Everything the booth needs is saved on the tablet the first time it loads.
 // Online: always fetch fresh copies (so updates show up) and refresh the saved copy.
 // Offline: serve the saved copy. Guest uploads (POSTs to the Google backend) are never cached.
-const CACHE = 'atomik-booth-v1';
+const CACHE = 'atomik-booth-v2';
 const FILES = [
   './', 'index.html', 'style.css', 'app.js', 'art.js', 'delivery.js', 'config.js', 'det-worker.js', 'manifest.json',
-  'assets/logo_chrome.png', 'assets/emblem_chrome.png', 'assets/word_chrome.png',
+  'assets/logo_chrome.png', 'assets/icon-192.png', 'assets/icon-512.png', 'assets/emblem_chrome.png', 'assets/word_chrome.png',
   'assets/fonts/Montserrat-Black.ttf', 'assets/fonts/Montserrat-ExtraBold.ttf', 'assets/fonts/Montserrat-SemiBold.ttf', 'assets/fonts/Montserrat-Medium.ttf',
   'assets/bg/desert.jpg', 'assets/bg/space.jpg', 'assets/bg/grid.jpg',
   'vendor/qrcode.min.js', 'vendor/mediapipe/vision_bundle.mjs',

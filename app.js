@@ -450,8 +450,11 @@ function validate() {
   const email = $('fEmail').value.trim(), phone = cleanPhone($('fPhone').value);
   const bad = [];
   $('fEmail').classList.toggle('bad', !EMAIL_RE.test(email)); if (!EMAIL_RE.test(email)) bad.push('a valid email');
-  const phoneOk = phone.length === 10 || (!CONFIG.REQUIRE_PHONE && phone.length === 0);
-  $('fPhone').classList.toggle('bad', !phoneOk); if (!phoneOk) bad.push('a 10-digit phone number');
+  // phone: optional, unless they ticked the text-message box (no number = nothing to text)
+  const needPhone = CONFIG.REQUIRE_PHONE || $('cSms').checked;
+  const phoneOk = phone.length === 10 || (!needPhone && phone.length === 0);
+  $('fPhone').classList.toggle('bad', !phoneOk);
+  if (!phoneOk) bad.push($('cSms').checked && phone.length === 0 ? 'a phone number for the text messages' : 'a 10-digit phone number');
   $('formErr').textContent = bad.length ? 'Please enter ' + bad.join(' and ') + '.' : '';
   return bad.length ? null : { email, phone };
 }
