@@ -12,7 +12,7 @@ export const CONFIG = {
   TERMS_URL: 'https://example.com/terms',
   PRIVACY_URL: 'https://example.com/privacy',
 
-  REQUIRE_PHONE: false,                // phone is optional (still required if they tick the text-message box)
+  REQUIRE_PHONE: true,                 // phone number required (set false to make it optional)
 
   // consent wording -- saved word-for-word with each entry, so there's a record of exactly what was agreed to
   CONSENT_EMAIL: 'Keep me updated via email with weekly newsletters and sales.',
